@@ -21,6 +21,8 @@ using Telerik.Windows.Documents.Flow.FormatProviders.Txt;
 using Telerik.Windows.Documents.Flow.Model;
 using Telerik.Windows.Documents.Flow.Model.Editing;
 using Telerik.Windows.Documents.Flow.Model.Styles;
+using Telerik.Windows.Documents.Media;
+using System.Drawing.Imaging;
 
 namespace GenerateDocument
 {
@@ -91,6 +93,40 @@ namespace GenerateDocument
             paragraph.Inlines.AddRun("cell text");
             //editor.InsertParagraph();
             editor.MoveToTableEnd(table);
+
+            var bitmap = new System.Drawing.Bitmap(300, 300);
+            var blackPen = new System.Drawing.Pen(System.Drawing.Color.Black, 3);
+
+            int x1 = 0;
+            int y1 = 100;
+            int x2 = 300;
+            int y2 = 100;
+            var borderSize = 10;
+            var pos = new System.Drawing.Point(borderSize, borderSize);
+            // Draw line to screen.
+            using (var graphics = System.Drawing.Graphics.FromImage(bitmap))
+            using (var solidBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White))
+            //using (var borderBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red))
+            using (var pen = new System.Drawing.Pen(System.Drawing.Color.Red, borderSize))
+            {
+                graphics.FillRectangle(solidBrush, 0, 0, 300, 300);
+                //graphics.FillRectangle(borderBrush, pos.X - borderSize, pos.Y - borderSize,
+                //    bitmap.Width + borderSize, bitmap.Height + borderSize);
+
+                graphics.DrawLine(pen, new System.Drawing.Point(0, 0), new System.Drawing.Point(0, bitmap.Width));
+                graphics.DrawLine(pen, new System.Drawing.Point(0, 0), new System.Drawing.Point(bitmap.Height, 0));
+                graphics.DrawLine(pen, new System.Drawing.Point(0, bitmap.Width), new System.Drawing.Point(bitmap.Height, bitmap.Width));
+                graphics.DrawLine(pen, new System.Drawing.Point(bitmap.Height, 0), new System.Drawing.Point(bitmap.Height, bitmap.Width));
+
+                graphics.DrawLine(blackPen, x1, y1, x2, y2);
+            }
+            using (var memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, ImageFormat.Jpeg);
+                bitmap.Save("blah.jpg");
+                editor.InsertImageInline(memoryStream, "jpeg");
+            }
+            editor.InsertParagraph();
 
             editor.InsertText("The current community preview version comes with full rich-text capabilities including ");
             editor.InsertText("bold, ").FontWeight = FontWeights.Bold;

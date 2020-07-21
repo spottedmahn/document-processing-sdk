@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="Telerik.Documents.Core" Version="2020.2.615" />
     <PackageReference Include="Telerik.Documents.Fixed" Version="2020.2.615" />
     <PackageReference Include="Telerik.Documents.Flow" Version="2020.2.615" />
