@@ -76,12 +76,21 @@ namespace GenerateDocument
             run.Underline.Pattern = UnderlinePattern.Single;
             editor.InsertLine(" Microsoft Office.");
 
+            var run2 = editor.InsertLine("My Table Header");
+            //todo this isn't working, why not??
+            //run.FontWeight = FontWeights.Bold;
+            run2.FontSize += 28;
+            run2.Paragraph.Spacing.SpacingAfter = 0;
+            run2.Paragraph.Spacing.LineSpacing = 0;
+            //editor.MoveToInlineEnd(run);
+
             var table = editor.InsertTable(3, 3);
             table.Borders = new TableBorders(new Border(1, BorderStyle.Single, new ThemableColor(Colors.Black)));
             var paragraph = table.Rows[0].Cells[0].Blocks.AddParagraph();
             editor.MoveToParagraphStart(paragraph);
             paragraph.Inlines.AddRun("cell text");
-            editor.InsertParagraph();
+            //editor.InsertParagraph();
+            editor.MoveToTableEnd(table);
 
             editor.InsertText("The current community preview version comes with full rich-text capabilities including ");
             editor.InsertText("bold, ").FontWeight = FontWeights.Bold;
