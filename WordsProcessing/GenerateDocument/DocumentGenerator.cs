@@ -78,13 +78,30 @@ namespace GenerateDocument
             run.Underline.Pattern = UnderlinePattern.Single;
             editor.InsertLine(" Microsoft Office.");
 
-            var run2 = editor.InsertLine("My Table Header");
+            var styleId = "HeaderStyle";
+            var style = new Style(styleId, StyleType.Paragraph);
+            style.ParagraphProperties.SpacingAfter.LocalValue = 0;
+            style.ParagraphProperties.LineSpacing.LocalValue = 1;
+            style.CharacterProperties.FontSize.LocalValue = 42.666666666666664;
+            document.StyleRepository.Add(style);
+
+            //var run2 = editor.InsertText("My Table Header");
+            ////todo this isn't working, why not??
+            ////run.FontWeight = FontWeights.Bold;
+            //run2.FontSize += 28;
+            //run2.Paragraph.Spacing.SpacingAfter = 0;
+            //run2.Paragraph.Spacing.LineSpacing = 1;
+            //run2.Properties.BackgroundColor.LocalValue = new ThemableColor(Colors.BlueViolet);
+
+            var run3 = editor.InsertText("My Table Header Stylized");
             //todo this isn't working, why not??
             //run.FontWeight = FontWeights.Bold;
-            run2.FontSize += 28;
-            run2.Paragraph.Spacing.SpacingAfter = 0;
-            run2.Paragraph.Spacing.LineSpacing = 0;
+            //run3.FontSize += 28;
+            //run3.Paragraph.Spacing.SpacingAfter = 0;
+            //run3.Paragraph.Spacing.LineSpacing = 0;
             //editor.MoveToInlineEnd(run);
+            run3.Properties.BackgroundColor.LocalValue = new ThemableColor(Colors.Purple);
+            run3.StyleId = styleId;
 
             var table = editor.InsertTable(3, 3);
             table.Borders = new TableBorders(new Border(1, BorderStyle.Single, new ThemableColor(Colors.Black)));
@@ -123,10 +140,11 @@ namespace GenerateDocument
             using (var memoryStream = new MemoryStream())
             {
                 bitmap.Save(memoryStream, ImageFormat.Jpeg);
-                bitmap.Save("blah.jpg");
+                bitmap.Save($"blah - {DateTime.Now:yyyy-MM-dd hh.mm.ss tt}.jpg");
                 editor.InsertImageInline(memoryStream, "jpeg");
             }
             editor.InsertParagraph();
+
 
             editor.InsertText("The current community preview version comes with full rich-text capabilities including ");
             editor.InsertText("bold, ").FontWeight = FontWeights.Bold;

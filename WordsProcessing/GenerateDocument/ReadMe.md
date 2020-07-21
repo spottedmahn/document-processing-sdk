@@ -1,4 +1,12 @@
-## Generate Document ##
+﻿## Generate Document ##
+
+### Style a run problem
+
+Using a stlye ❌
+![Style Run 2](readme-resources/style-run-2.png)
+
+Manually styled ✅
+![Style Run 1](readme-resources/style-run-1.png)
 
 ### Anti-aliasing problem
 
