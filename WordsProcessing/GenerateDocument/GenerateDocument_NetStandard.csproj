@@ -45,6 +45,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Telerik.Documents.Core" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Documents.Fixed" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Documents.Flow" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2020.2.615" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Telerik.Documents.Core">
       <HintPath>..\..\..\..\..\Binaries\netstandard\Telerik.Documents.Core.dll</HintPath>
     </Reference>

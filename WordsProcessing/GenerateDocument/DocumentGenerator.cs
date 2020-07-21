@@ -76,6 +76,13 @@ namespace GenerateDocument
             run.Underline.Pattern = UnderlinePattern.Single;
             editor.InsertLine(" Microsoft Office.");
 
+            var table = editor.InsertTable(3, 3);
+            table.Borders = new TableBorders(new Border(1, BorderStyle.Single, new ThemableColor(Colors.Black)));
+            var paragraph = table.Rows[0].Cells[0].Blocks.AddParagraph();
+            editor.MoveToParagraphStart(paragraph);
+            paragraph.Inlines.AddRun("cell text");
+            editor.InsertParagraph();
+
             editor.InsertText("The current community preview version comes with full rich-text capabilities including ");
             editor.InsertText("bold, ").FontWeight = FontWeights.Bold;
             editor.InsertText("italic, ").FontStyle = FontStyles.Italic;
@@ -94,6 +101,9 @@ namespace GenerateDocument
             editor.InsertText("Kind regards,");
 
             this.CreateSignature(editor);
+
+            editor.InsertParagraph();
+            editor.InsertLine("blah blah blah");
 
             this.CreateHeader(editor);
 
@@ -198,7 +208,7 @@ namespace GenerateDocument
                 return;
             }
 
-            string path = "Sample document." + selectedFormat;
+            string path = $"Sample document - {DateTime.Now:yyyy-MM-dd hh.mm.ss tt}." + selectedFormat;
             using (FileStream stream = File.OpenWrite(path))
             {
                 formatProvider.Export(document, stream);

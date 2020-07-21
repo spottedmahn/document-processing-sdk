@@ -15,18 +15,18 @@ namespace GenerateDocument
 #endif
             Console.Write("Choose the format you would like to export to (docx/html/rtf/txt/pdf): ");
 
-            string input = Console.ReadLine();
+            //string input = Console.ReadLine();
 
             DocumentGenerator generator = new DocumentGenerator();
-
-            if (!string.IsNullOrEmpty(input))
-            {
-                generator.SelectedExportFormat = input;
-            }
+            generator.SelectedExportFormat = "pdf";
+            //if (!string.IsNullOrEmpty(input))
+            //{
+            //    generator.SelectedExportFormat = input;
+            //}
 
             generator.Generate();
 
-            Console.Read();
+            //Console.Read();
         }
     }
 }
